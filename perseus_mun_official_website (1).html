@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perseus Model United Nations | Guwahati, Assam</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#050914',
+                            900: '#080D1A',
+                            800: '#0F172A',
+                            700: '#1E293B'
+                        },
+                        gold: {
+                            300: '#FDE047',
+                            400: '#FACC15',
+                            500: '#D4AF37',
+                            600: '#B8860B',
+                            700: '#8B6508'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080D1A;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Canvas background fixed */
+        #webgl-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Glassmorphic UI elements */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-panel-hover:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 10px 40px 0 rgba(212, 175, 55, 0.15);
+            transform: translateY(-4px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0B3 0%, #D4AF37 50%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080D1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A3859;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        /* Pulse glow animation */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+        .animate-subtle-pulse {
+            animation: subtlePulse 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative text-slate-100 antialiased selection:bg-gold-500 selection:text-navy-950">
+
+    <!-- Three.js Canvas Container -->
+    <canvas id="webgl-bg"></canvas>
+
+    <!-- Main Content Wrapper -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Navigation Bar -->
+        <header class="sticky top-0 z-50 transition-all duration-300 backdrop-blur-md bg-navy-950/80 border-b border-gold-500/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                
+                <!-- Brand Logo & Title -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full border border-gold-500/50 p-1 flex items-center justify-center bg-navy-900 group-hover:border-gold-400 transition-colors shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-gold-500 fill-current">
+                            <!-- SVG Helmet Icon -->
+                            <path d="M50 10 L65 30 L60 32 L50 20 L40 32 L35 30 Z" fill="#D4AF37"/>
+                            <path d="M50 25 C30 25 20 40 20 65 C20 75 25 85 30 90 L45 85 L45 60 L50 60 L55 60 L55 85 L70 90 C75 85 80 75 80 65 C80 40 70 25 50 25 Z M35 55 L45 55 L45 50 L35 50 Z M65 55 L55 55 L55 50 L65 50 Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block font-cinzel font-bold text-lg sm:text-xl tracking-wider gold-gradient-text">PERSEUS</span>
+                        <span class="block text-[10px] sm:text-xs text-slate-400 tracking-widest font-semibold uppercase">Model United Nations</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Items -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-slate-300 hover:text-gold-400 transition-colors">About</a>
+                    <a href="#committees" class="text-slate-300 hover:text-gold-400 transition-colors">Committees</a>
+                    <a href="#details" class="text-slate-300 hover:text-gold-400 transition-colors">Details & Fees</a>
+                    <a href="#faq" class="text-slate-300 hover:text-gold-400 transition-colors">FAQ</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="https://linktr.ee/Perseus_MUN" target="_blank" rel="noopener" class="text-slate-300 hover:text-gold-400 px-3 py-2 text-sm transition-colors flex items-center gap-2">
+                        <i class="fa-solid font-bold fa-tree text-gold-500"></i> Linktree
+                    </a>
+                    <button onclick="openRegistrationModal()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-600 via-gold-500 to-amber-600 text-navy-950 font-semibold text-sm hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,175,55,0.4)] cursor-pointer">
+                        Register Now
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-gold-400 text-2xl p-2 focus:outline-none" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Nav -->
+            <div id="mobile-menu" class="hidden md:hidden bg-navy-950/95 border-b border-gold-500/20 px-4 pt-2 pb-6 space-y-3 text-center">
+                <a href="#about" class="block py-2 text-slate-200 hover:text-gold-400 font-medium">About</a>
+                <a href="#committees" class="block py-2 text-slate-200 hover:text-gold-400 font-medium">Committees</a>
+                <a href="#details" class="block py-2 text-slate-200 hover:text-gold-400 font-medium">Details & Fees</a>
+                <a href="#faq" class="block py-2 text-slate-200 hover:text-gold-400 font-medium">FAQ</a>
+                <div class="pt-2 flex flex-col gap-2">
+                    <a href="https://linktr.ee/Perseus_MUN" target="_blank" rel="noopener" class="w-full py-2.5 rounded-lg border border-gold-500/40 text-gold-400 font-medium flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-tree"></i> Linktree Hub
+                    </a>
+                    <button onclick="openRegistrationModal()" class="w-full py-2.5 rounded-lg bg-gold-500 text-navy-950 font-bold">
+                        Register Now
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 overflow-hidden">
+            <div class="max-w-5xl mx-auto text-center space-y-8 relative z-10">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-gold-500/30 text-xs sm:text-sm font-medium text-gold-400 animate-subtle-pulse">
+                    <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                    <span>Guwahati, Assam, India &bull; Edition I</span>
+                </div>
+
+                <!-- Main Title -->
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
+                        PERSEUS <br class="sm:hidden" />
+                        <span class="gold-gradient-text block sm:inline">MODEL UNITED NATIONS</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+                        Empowering Diplomacy. Fostering Leadership. Shaping Tomorrow in the Heart of Northeast India.
+                    </p>
+                </div>
+
+                <!-- Quick Event Highlights Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-4">
+                    <div class="glass-panel p-4 rounded-xl border-gold-500/20 text-center">
+                        <div class="text-gold-400 text-sm font-semibold uppercase tracking-wider mb-1"><i class="fa-solid fa-location-dot mr-1"></i> Venue</div>
+                        <div class="text-white font-bold text-base">Guwahati, Assam</div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl border-gold-500/20 text-center">
+                        <div class="text-gold-400 text-sm font-semibold uppercase tracking-wider mb-1"><i class="fa-solid fa-calendar-days mr-1"></i> Dates</div>
+                        <div class="text-white font-bold text-base">Announcing Soon (TBA)</div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl border-gold-500/20 text-center">
+                        <div class="text-gold-400 text-sm font-semibold uppercase tracking-wider mb-1"><i class="fa-solid fa-ticket mr-1"></i> Delegate Fee</div>
+                        <div class="text-white font-bold text-base">₹1,200 INR</div>
+                    </div>
+                </div>
+
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                    <button onclick="openRegistrationModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 via-amber-500 to-gold-600 text-navy-950 font-bold text-base hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transform hover:-translate-y-0.5 transition-all duration-200">
+                        Fill Interest Check Form <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                    <a href="#committees" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel border border-gold-500/40 text-slate-200 hover:text-gold-300 hover:border-gold-400 font-semibold text-base transition-all">
+                        Explore Committees
+                    </a>
+                </div>
+
+                <!-- Social Quick Link -->
+                <div class="pt-8 flex items-center justify-center gap-6 text-slate-400">
+                    <a href="https://instagram.com/perseus_mun2027" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors flex items-center gap-2 text-sm">
+                        <i class="fa-brands fa-instagram text-lg text-pink-500"></i> @perseusmun
+                    </a>
+                    <span>&bull;</span>
+                    <a href="https://forms.gle/YKPnmc592rA6PQpV7" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-file-lines text-lg text-gold-500"></i> Direct Form Link
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left: Emblem Visual Display -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 glass-panel rounded-full p-6 flex items-center justify-center border-2 border-gold-500/30 gold-border-glow">
+                            <div class="absolute inset-0 rounded-full border border-gold-500/20 animate-spin" style="animation-duration: 25s;"></div>
+                            <div class="text-center p-4">
+                                <i class="fa-solid fa-shield-halved text-6xl sm:text-7xl gold-gradient-text mb-4"></i>
+                                <h3 class="font-cinzel font-bold text-xl text-gold-400">PERSEUS</h3>
+                                <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">Valour &bull; Wisdom &bull; Victory</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Narrative Content -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-block text-gold-400 font-semibold text-sm tracking-wider uppercase">
+                            About The Conference
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold font-cinzel text-white leading-tight">
+                            Where Heroic Vision Meets Global Diplomacy
+                        </h2>
+                        <p class="text-slate-300 leading-relaxed text-base sm:text-lg">
+                            Named after the mythic Greek hero renowned for courage, resourcefulness, and sharp intellect, 
+                            <strong class="text-gold-300 font-semibold">Perseus Model United Nations</strong> is established to create an unparalleled platform for youth leadership in <strong>Guwahati, Assam</strong>.
+                        </p>
+                        <p class="text-slate-400 leading-relaxed text-sm sm:text-base">
+                            Whether you are navigating high-stakes international crises in the UN Security Council, addressing national policy in the Lok Sabha, or recording history through the lens in the International Press Corps, Perseus MUN provides rigorous debate, expert executive boards, and unforgettable networking.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="glass-panel p-4 rounded-lg border-l-4 border-l-gold-500">
+                                <div class="text-2xl font-extrabold text-white font-cinzel">3 Committees</div>
+                                <div class="text-xs text-slate-400 uppercase mt-1">Diverse Agendas</div>
+                            </div>
+                            <div class="glass-panel p-4 rounded-lg border-l-4 border-l-gold-500">
+                                <div class="text-2xl font-extrabold text-white font-cinzel">₹1,200</div>
+                                <div class="text-xs text-slate-400 uppercase mt-1">Inclusive Delegate Fee</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Committees Section -->
+        <section id="committees" class="py-20 px-4 sm:px-6 lg:px-8 bg-navy-950/40 relative">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <span class="text-gold-400 font-semibold text-sm tracking-widest uppercase">Select Your Forum</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold font-cinzel text-white">Featured Committees</h2>
+                    <p class="text-slate-400 text-base">
+                        Choose your arena of debate. Perseus MUN features global diplomacy, national governance, and photojournalism.
+                    </p>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- UNSC Card -->
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl group-hover:bg-gold-500/20 transition-all"></div>
+                        <div class="space-y-4 relative z-10">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl shadow-lg">
+                                <i class="fa-solid fa-earth-americas"></i>
+                            </div>
+                            <span class="inline-block px-3 py-1 text-[11px] font-bold tracking-wider uppercase rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/30">
+                                International Committee
+                            </span>
+                            <h3 class="text-2xl font-bold font-cinzel text-white">UNSC</h3>
+                            <p class="text-xs text-gold-400/90 font-semibold tracking-wide uppercase">United Nations Security Council</p>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                The principal organ responsible for maintaining international peace and security. Delegates will address urgent global security threats, territorial conflicts, and multilateral defense strategies.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-users text-gold-500 mr-1"></i> Double / Single Delegations</span>
+                            <span class="text-gold-400 font-semibold"> All Skill Levels </span>
+                        </div>
+                    </div>
+
+                    <!-- Lok Sabha Card -->
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl group-hover:bg-gold-500/20 transition-all"></div>
+                        <div class="space-y-4 relative z-10">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl shadow-lg">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <span class="inline-block px-3 py-1 text-[11px] font-bold tracking-wider uppercase rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                                Indian Committee
+                            </span>
+                            <h3 class="text-2xl font-bold font-cinzel text-white">Lok Sabha</h3>
+                            <p class="text-xs text-gold-400/90 font-semibold tracking-wide uppercase">House of the People &bull; Parliament</p>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Deliberate on national legislative policy, socio-economic reforms, and constitutional governance. Experience high-octane parliamentary debate representing ministers and parliamentarians.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-user text-gold-500 mr-1"></i> Single Delegation</span>
+                            <span class="text-gold-400 font-semibold">All Skill Levels</span>
+                        </div>
+                    </div>
+
+                    <!-- IPC Photojournalism Card -->
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl group-hover:bg-gold-500/20 transition-all"></div>
+                        <div class="space-y-4 relative z-10">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl shadow-lg">
+                                <i class="fa-solid fa-camera-retro"></i>
+                            </div>
+                            <span class="inline-block px-3 py-1 text-[11px] font-bold tracking-wider uppercase rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                Press Corps
+                            </span>
+                            <h3 class="text-2xl font-bold font-cinzel text-white">IPC - Photojournalism</h3>
+                            <p class="text-xs text-gold-400/90 font-semibold tracking-wide uppercase">International Press Corps</p>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Capture the defining moments, intense negotiations, and emotion of committee sessions through your lens. Ideal for aspiring visual storytellers and photojournalists.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-camera text-gold-500 mr-1"></i> Portfolio Required</span>
+                            <span class="text-gold-400 font-semibold">Creative Sector</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration & Fees Section -->
+        <section id="details" class="py-20 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-5xl mx-auto space-y-12">
+                
+                <div class="glass-panel rounded-3xl p-8 sm:p-12 border-gold-500/40 relative overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.6)]">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6">
+                            <span class="text-gold-400 font-semibold text-xs tracking-widest uppercase">Registration Details</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold font-cinzel text-white">Delegate Investment</h2>
+                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                                Secure your seat early for Perseus MUN. Filling out the Interest Check form reserves your spot for priority committee matrix allocations.
+                            </p>
+
+                            <ul class="space-y-3 text-sm text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-gold-400 mt-1"></i>
+                                    <span><strong>Delegate Fee:</strong> ₹1,200 INR per delegate.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-gold-400 mt-1"></i>
+                                    <span><strong>Includes:</strong> Entry to sessions, delegate kit, official certificate, executive board feedback, and conference socials.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-gold-400 mt-1"></i>
+                                    <span><strong>Location:</strong> Guwahati, Assam, India.</span>
+                                </li>
+                            </ul>
+
+                            <div class="pt-2 flex flex-wrap gap-4">
+                                <button onclick="openRegistrationModal()" class="px-6 py-3 rounded-full bg-gold-500 text-navy-950 font-bold hover:bg-gold-400 transition-colors shadow-lg">
+                                    Open Form Portal <i class="fa-solid fa-external-link ml-2 text-xs"></i>
+                                </button>
+                                <a href="https://linktr.ee/Perseus_MUN" target="_blank" rel="noopener" class="px-6 py-3 rounded-full border border-gold-500/50 text-gold-300 hover:bg-gold-500/10 font-medium transition-colors">
+                                    Visit Linktree
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Price Tag Visual Display -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="w-full max-w-sm glass-panel p-8 rounded-2xl border border-gold-500/40 text-center space-y-4 bg-gradient-to-b from-navy-900/80 to-navy-950/80">
+                                <div class="text-xs text-gold-400 uppercase font-semibold tracking-widest">Delegate Registration</div>
+                                <div class="text-5xl font-black font-cinzel gold-gradient-text">₹1,200</div>
+                                <div class="text-slate-400 text-xs">Per Delegate / Journalist</div>
+                                <hr class="border-gold-500/20" />
+                                <div class="text-xs text-slate-300 space-y-2 text-left">
+                                    <div class="flex items-center justify-between">
+                                        <span>Status:</span>
+                                        <span class="text-emerald-400 font-semibold">Interest Check Live</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span>Dates:</span>
+                                        <span class="text-gold-400 font-semibold">TBA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 bg-navy-950/60 relative">
+            <div class="max-w-4xl mx-auto space-y-10">
+                
+                <div class="text-center space-y-3">
+                    <span class="text-gold-400 font-semibold text-xs tracking-widest uppercase">Got Questions?</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold font-cinzel text-white">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="glass-panel rounded-xl overflow-hidden border-gold-500/20">
+                        <button onclick="toggleFaq('faq-1')" class="w-full p-5 text-left font-semibold text-white flex justify-between items-center focus:outline-none hover:text-gold-300">
+                            <span>When and where will the dates be announced?</span>
+                            <i id="faq-icon-faq-1" class="fa-solid fa-chevron-down text-gold-400 transition-transform"></i>
+                        </button>
+                        <div id="faq-1" class="hidden px-5 pb-5 text-sm text-slate-300 border-t border-slate-800 pt-3">
+                            The exact dates for Perseus MUN in Guwahati will be announced shortly on our official Linktree (<a href="https://linktr.ee/Perseus_MUN" target="_blank" class="text-gold-400 underline">linktr.ee/Perseus_MUN</a>) and Instagram handle <a href="https://instagram.com/perseus_mun2027" target="_blank" class="text-gold-400 underline">@perseusmun</a>.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="glass-panel rounded-xl overflow-hidden border-gold-500/20">
+                        <button onclick="toggleFaq('faq-2')" class="w-full p-5 text-left font-semibold text-white flex justify-between items-center focus:outline-none hover:text-gold-300">
+                            <span>How do I pay the ₹1,200 delegate fee?</span>
+                            <i id="faq-icon-faq-2" class="fa-solid fa-chevron-down text-gold-400 transition-transform"></i>
+                        </button>
+                        <div id="faq-2" class="hidden px-5 pb-5 text-sm text-slate-300 border-t border-slate-800 pt-3">
+                            Once you fill out the interest check form, payment gateway details and UPI QR handles will be communicated to your provided WhatsApp number / Email address along with your allotment preferences.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="glass-panel rounded-xl overflow-hidden border-gold-500/20">
+                        <button onclick="toggleFaq('faq-3')" class="w-full p-5 text-left font-semibold text-white flex justify-between items-center focus:outline-none hover:text-gold-300">
+                            <span>Can beginners apply for Lok Sabha or UNSC?</span>
+                            <i id="faq-icon-faq-3" class="fa-solid fa-chevron-down text-gold-400 transition-transform"></i>
+                        </button>
+                        <div id="faq-3" class="hidden px-5 pb-5 text-sm text-slate-300 border-t border-slate-800 pt-3">
+                            Yes! Perseus MUN welcomes both first-time delegates and experienced debate veterans. Executive Board members will conduct orientation guides prior to committee sessions.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto bg-navy-950 border-t border-gold-500/20 py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="text-center md:text-left space-y-2">
+                    <div class="font-cinzel font-bold text-xl gold-gradient-text">PERSEUS MUN</div>
+                    <p class="text-xs text-slate-400">Guwahati, Assam, India &bull; Official Model United Nations Conference</p>
+                </div>
+
+                <div class="flex items-center gap-6 text-slate-300">
+                    <a href="https://instagram.com/perseus_mun2027" target="_blank" rel="noopener" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-all">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                    </a>
+                    <a href="https://linktr.ee/Perseus_MUN" target="_blank" rel="noopener" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-all">
+                        <i class="fa-solid fa-tree text-lg"></i>
+                    </a>
+                    <a href="https://forms.gle/YKPnmc592rA6PQpV7" target="_blank" rel="noopener" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-all">
+                        <i class="fa-solid fa-paper-plane text-lg"></i>
+                    </a>
+                </div>
+
+                <div class="text-xs text-slate-500 text-center md:text-right">
+                    &copy; Perseus MUN. All Rights Reserved.
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Modal for Interest Form / Linktree Redirect -->
+    <div id="registration-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl border-2 border-gold-500/40 p-6 sm:p-8 space-y-6 relative bg-navy-900 shadow-2xl">
+            
+            <button onclick="closeRegistrationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-gold-400 text-2xl p-1 focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-2">
+                <span class="text-gold-400 font-semibold text-xs uppercase tracking-widest">Official Portal</span>
+                <h3 class="text-2xl font-bold font-cinzel text-white">Delegate Interest Check</h3>
+                <p class="text-xs sm:text-sm text-slate-300">
+                    You are opening the official Google Form for Perseus MUN (Guwahati, Assam).
+                </p>
+            </div>
+
+            <!-- Form Direct Options -->
+            <div class="space-y-4 pt-2">
+                <a href="https://forms.gle/YKPnmc592rA6PQpV7" target="_blank" rel="noopener" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-gold-500 via-amber-500 to-gold-600 text-navy-950 font-bold flex items-center justify-between hover:brightness-110 transition-all shadow-lg group">
+                    <span><i class="fa-solid fa-file-signature mr-2"></i> Open Google Form Directly</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <a href="https://linktr.ee/Perseus_MUN" target="_blank" rel="noopener" class="w-full py-4 px-6 rounded-xl glass-panel border border-gold-500/40 text-gold-300 font-semibold flex items-center justify-between hover:bg-gold-500/10 transition-all group">
+                    <span><i class="fa-solid fa-tree mr-2"></i> Visit Linktree Hub</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <p class="text-[11px] text-slate-400 text-center italic">
+                Delegate Fee: ₹1,200 INR &bull; Organised in Guwahati, Assam
+            </p>
+        </div>
+    </div>
+
+    <!-- WebGL Three.js Animation Script -->
+    <script>
+        // Interactive Controls & Three.js Canvas setup
+        let scene, camera, renderer;
+        let globeLattice, particleSystem, dustNodes;
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        function initThreeJS() {
+            const canvas = document.getElementById('webgl-bg');
+            
+            // 1. Scene setup
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x080D1A, 0.0015);
+
+            // 2. Camera setup
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
+            camera.position.z = 600;
+
+            // 3. Renderer setup
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // 4. Create Globe Lattice Object (Globe Wireframe inspired by logo)
+            const globeGeo = new THREE.IcosahedronGeometry(220, 3);
+            const globeMat = new THREE.MeshBasicMaterial({
+                color: 0xD4AF37,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.18
+            });
+            globeLattice = new THREE.Mesh(globeGeo, globeMat);
+            scene.add(globeLattice);
+
+            // 5. Outer Particle Shield Ring (Laurel / Spartan outline feel)
+            const particleCount = 1200;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            const goldColor = new THREE.Color(0xD4AF37);
+            const lightGold = new THREE.Color(0xFFE58F);
+
+            for (let i = 0; i < particleCount; i++) {
+                // Sphere dispersion
+                const u = Math.random();
+                const v = Math.random();
+                const theta = u * 2.0 * Math.PI;
+                const phi = Math.acos(2.0 * v - 1.0);
+                const r = 260 + Math.random() * 300;
+
+                const x = r * Math.sin(phi) * Math.cos(theta);
+                const y = r * Math.sin(phi) * Math.sin(theta);
+                const z = r * Math.cos(phi);
+
+                positions[i * 3] = x;
+                positions[i * 3 + 1] = y;
+                positions[i * 3 + 2] = z;
+
+                const mixedColor = goldColor.clone().lerp(lightGold, Math.random());
+                colors[i * 3] = mixedColor.r;
+                colors[i * 3 + 1] = mixedColor.g;
+                colors[i * 3 + 2] = mixedColor.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const pMaterial = new THREE.PointsMaterial({
+                size: 3.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.65,
+                blending: THREE.AdditiveBlending
+            });
+
+            particleSystem = new THREE.Points(geometry, pMaterial);
+            scene.add(particleSystem);
+
+            // 6. Floating Ambient Dust Particles
+            const dustCount = 300;
+            const dustGeo = new THREE.BufferGeometry();
+            const dustPos = new Float32Array(dustCount * 3);
+
+            for (let j = 0; j < dustCount; j++) {
+                dustPos[j * 3] = (Math.random() - 0.5) * 1500;
+                dustPos[j * 3 + 1] = (Math.random() - 0.5) * 1500;
+                dustPos[j * 3 + 2] = (Math.random() - 0.5) * 1000;
+            }
+
+            dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+            const dustMat = new THREE.PointsMaterial({
+                color: 0xFACC15,
+                size: 2,
+                transparent: true,
+                opacity: 0.35
+            });
+
+            dustNodes = new THREE.Points(dustGeo, dustMat);
+            scene.add(dustNodes);
+
+            // Listeners
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) * 0.2;
+            mouseY = (event.clientY - windowHalfY) * 0.2;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Cursor Parallax interpolation
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // Rotate objects smoothly
+            if (globeLattice) {
+                globeLattice.rotation.y += 0.002;
+                globeLattice.rotation.x += 0.001;
+            }
+
+            if (particleSystem) {
+                particleSystem.rotation.y -= 0.0008;
+                particleSystem.rotation.x = targetY * 0.001;
+            }
+
+            if (dustNodes) {
+                dustNodes.rotation.y += 0.0003;
+                dustNodes.position.y = Math.sin(Date.now() * 0.0005) * 10;
+            }
+
+            // Scroll position dynamic depth tilt
+            const scrollY = window.scrollY;
+            camera.position.y = -scrollY * 0.25;
+            camera.position.x = targetX * 0.5;
+
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Start Three.js loop on load
+        window.onload = function() {
+            initThreeJS();
+            animate();
+        };
+
+        // UI Helpers
+        function openRegistrationModal() {
+            const modal = document.getElementById('registration-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeRegistrationModal() {
+            const modal = document.getElementById('registration-modal');
+            modal.classList.add('hidden');
+        }
+
+        function toggleFaq(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('faq-icon-' + id);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Mobile Nav Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
